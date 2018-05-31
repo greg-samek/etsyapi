@@ -1,0 +1,5 @@
+.result-card {
+    flex-basis: 98%;
+    border-top: 2px solid black;
+    flex-grow: 1;
+}

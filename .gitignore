@@ -25,3 +25,6 @@ yarn.lock
 
 # webstorm scratchpad
 .idea/
+
+# package
+package-lock.json

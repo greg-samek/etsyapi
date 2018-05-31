@@ -10,7 +10,7 @@ const port = 4000;
 app.get('/api', (request, response) => {
     const search = request.query.keywords;
     console.log(search);
-    fetch(`https://openapi.etsy.com/v2/listings/active?api_key=e6ky4m413kjm7yw0dqqidku4&keywords=${search}`)
+    fetch(`https://openapi.etsy.com/v2/listings/active?api_key=e6ky4m413kjm7yw0dqqidku4&keywords=${search}&includes=Images(url_170x135):1:0`)
         .then(res => res.json())
         .then(
             (res) => {

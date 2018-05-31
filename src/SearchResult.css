@@ -1,0 +1,15 @@
+.results-loading-spinner {
+    text-align: center;
+}
+
+h1 img {
+    position: relative;
+    top: 16px;
+}
+
+.search-results {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}

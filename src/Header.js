@@ -7,7 +7,7 @@ class Header extends Component {
     render() {
         return(
             <header>
-                <h1 className="App-title">I'm looking for </h1>
+                <h1 className="App-title"><img src={`http://${window.location.host}/imperial-mustache-filled.png`} width="50" height="50" alt="mustache"/>&nbsp;search&#8482;</h1>
                 <input type="text" placeholder="... artisinal beard oil"/>
             </header>
         )
