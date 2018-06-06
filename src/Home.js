@@ -8,9 +8,9 @@ class Home extends Component {
   render() {
       return(
           <div>
-              <Header/>
+              <Header history={this.props.history}/>
               <body>
-                <p class="empty-search">in search, answers find you will find</p>
+                <p className="empty-search">in search, answers find you will</p>
               </body>
           </div>
       )

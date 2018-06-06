@@ -8,8 +8,8 @@ class ResultCard extends Component {
         const src = data.Images[0].url_170x135;
         return(
             <div className="result-card">
-                <h3>{data.title}</h3>
                 <img src={src} alt={data.title}/>
+                <h3>{data.title}</h3>
             </div>
         )
     }

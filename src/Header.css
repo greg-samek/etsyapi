@@ -1,4 +1,4 @@
-header {
+.top-nav {
     background-color: #FFFF;
     height: 150px;
     padding: 20px;
@@ -9,4 +9,11 @@ header {
 input {
     padding: 10px 5px;
     border: 2px solid aliceblue;
+}
+
+
+button {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: 700;
 }

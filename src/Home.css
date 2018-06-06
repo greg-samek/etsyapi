@@ -2,3 +2,7 @@
   color: #1faef3;
   text-align: center;
 }
+
+p {
+  -webkit-margin-before: 0;
+}
