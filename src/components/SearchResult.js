@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import { ScaleLoader } from 'react-spinners';
+import styled from 'styled-components';
 
-import './SearchResult.css';
 import Header from './Header';
 import ResultCard from './ResultCard';
 import Error from './Error';
 
+const SearchResults = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
+
+const ResultsLoadingSpinner = styled.div`
+    text-align: center;
+`;
 
 class SearchResult extends Component {
 
     constructor(props) {
         super(props);
         this.state = {results: null};
-        this.updateSearch = this.updateSearch.bind(this);
     }
 
     componentDidUpdate(nextProps, nextState) {
@@ -28,7 +37,7 @@ class SearchResult extends Component {
     }
 
 
-    updateSearch() {
+    updateSearch = () => {
         const { match: { params } } = this.props;
         const that = this;
         //TODO: as an alternative to JSONP, I'm making a request to a simple node proxy I created.
@@ -51,25 +60,24 @@ class SearchResult extends Component {
                     that.setState({error: true});
                 }
             )
-    }
+    };
 
 
     render() {
         const { match: { params } } = this.props;
         const { results, error } = this.state;
-        const searchResults = error ? <Error/> : (results ? results.map((result) => {
+        const ResultBody = error ? <Error/> : (results ? results.map((result) => {
             return <ResultCard key={result.listing_id} data={result}/>
-        }) : <div className="results-loading-spinner"> <ScaleLoader
+        }) : <ResultsLoadingSpinner> <ScaleLoader
             color={'#123abc'}
             loading={true}
-        /></div>);
-
+        /></ResultsLoadingSpinner>);
         return(
             <div>
                 <Header history={this.props.history}/>
-                <div className="search-results">
-                    {searchResults}
-                </div>
+                <SearchResults>
+                    {ResultBody}
+                </SearchResults>
             </div>
         )
     }

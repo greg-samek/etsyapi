@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Home from './Home';
-import SearchResult from './SearchResult.js';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
+
+import './index.css';
+
+import Home from './components/Home';
+import SearchResult from './components/SearchResult.js';
+
 
 ReactDOM.render(
     <Router>

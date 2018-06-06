@@ -1,5 +1,5 @@
 {
-  "name": "untitled1",
+  "name": "Etsy Search",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,7 +10,8 @@
     "react-dom": "^16.4.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "react-spinners": "^0.3.2"
+    "react-spinners": "^0.3.2",
+    "styled-components": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
