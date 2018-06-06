@@ -7,11 +7,11 @@ const SearchError = styled.p`
 `;
 
 const Error = () => {
-    return (
-        <SearchError>
-            Something went wrong. It's not you, it's us. Please try again.
-        </SearchError>
-    );
+  return (
+    <SearchError>
+      Something went wrong. It's not you, it's us. Please try again.
+    </SearchError>
+  );
 };
 
 export default Error;

@@ -8,14 +8,14 @@ import './index.css';
 import Home from './components/Home';
 import SearchResult from './components/SearchResult.js';
 
-
 ReactDOM.render(
-    <Router>
-        <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route path="/search/:SearchTerms" component={SearchResult}/>
-            <Route component={Home}/>
-        </Switch>
-    </Router>
-    , document.getElementById('root'));
+  <Router>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/search/:SearchTerms" component={SearchResult} />
+      <Route component={Home} />
+    </Switch>
+  </Router>,
+  document.getElementById('root')
+);
 registerServiceWorker();
