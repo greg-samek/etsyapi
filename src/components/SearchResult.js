@@ -45,7 +45,7 @@ class SearchResult extends Component {
     } = this.props;
     const prevSearchTerms = prevProps.match.params.SearchTerms;
 
-    if (prevSearchTerms != params.SearchTerms) {
+    if (prevSearchTerms !== params.SearchTerms) {
       this.setState({ loading: true }, () => {
         this.props.handleSearchTermChange(params.SearchTerms);
         this.props.handleListingsChange(params.SearchTerms);
