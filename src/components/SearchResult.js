@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { ScaleLoader } from 'react-spinners';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import ResultCard from './ResultCard';
-import Error from './Error';
+import { updateSearchTerm, getListings } from '../actionCreators';
 
 const SearchResults = styled.div`
   display: flex;
@@ -17,63 +18,76 @@ const ResultsLoadingSpinner = styled.div`
   text-align: center;
 `;
 
+const mapStateToProps = state => ({
+  searchTerm: state.searchTerm,
+  listings: state.listings
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleSearchTermChange(value) {
+    dispatch(updateSearchTerm(value));
+  },
+  handleListingsChange(value) {
+    dispatch(getListings(value));
+  }
+});
+
 class SearchResult extends Component {
   constructor(props) {
     super(props);
-    this.state = { results: null };
+    this.state = { loading: true };
   }
 
-  componentDidUpdate(nextProps, nextState) {
+  componentDidUpdate(prevProps) {
     const {
+      listings,
       match: { params }
     } = this.props;
-    if (nextProps.match.params.SearchTerms !== params.SearchTerms) {
-      this.setState({ results: null });
-      this.updateSearch();
+    const prevSearchTerms = prevProps.match.params.SearchTerms;
+
+    if (prevSearchTerms != params.SearchTerms) {
+      this.setState({ loading: true }, () => {
+        this.props.handleSearchTermChange(params.SearchTerms);
+        this.props.handleListingsChange(params.SearchTerms);
+      });
+    }
+
+    if (prevProps.listings !== listings) {
+      this.setState({ loading: false });
     }
   }
 
   componentDidMount() {
-    this.updateSearch();
+    const {
+      match: { params },
+      searchTerm
+    } = this.props;
+    if (!searchTerm) {
+      // User types in search url directly.
+      this.setState({ loading: true }, () => {
+        this.props.handleSearchTermChange(params.SearchTerms);
+        this.props.handleListingsChange(params.SearchTerms);
+      });
+    } else {
+      this.setState({ loading: true }, () =>
+        this.props.handleListingsChange(searchTerm)
+      );
+    }
   }
 
-  updateSearch = () => {
-    const {
-      match: { params }
-    } = this.props;
-    const that = this;
-    //TODO: as an alternative to JSONP, I'm making a request to a simple node proxy I created.
-    fetch(`http://localhost:4000/api?keywords=${params.SearchTerms}`)
-      .then(response => {
-        if (!response.ok) throw Error(response.statusText);
-        return response;
-      })
-      .then(response => {
-        response.json().then(function(data) {
-          that.setState({ results: data.results, error: false });
-        });
-      })
-      .catch(error => {
-        that.setState({ error: true });
-      });
-  };
-
   render() {
-    const {
-      match: { params }
-    } = this.props;
-    const { results, error } = this.state;
-    const ResultBody = error ? (
-      <Error />
-    ) : results ? (
-      results.map(result => {
-        return <ResultCard key={result.listing_id} data={result} />;
-      })
-    ) : (
+    const { loading } = this.state;
+    const { listings } = this.props;
+
+    const ResultBody = loading ? (
       <ResultsLoadingSpinner>
         {' '}
         <ScaleLoader color={'#123abc'} loading={true} />
       </ResultsLoadingSpinner>
+    ) : (
+      listings.map(listing => {
+        return <ResultCard key={listing.listing_id} data={listing} />;
+      })
     );
     return (
       <div>
@@ -84,4 +98,7 @@ class SearchResult extends Component {
   }
 }
 
-export default SearchResult;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchResult);

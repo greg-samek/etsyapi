@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { updateSearchTerm } from '../actionCreators';
 
 const TopNav = styled.div`
   background-color: #ffff;
@@ -26,6 +28,14 @@ const LogoMustache = styled.img`
   height: 50px;
 `;
 
+const mapStateToProps = state => ({ searchTerm: state.searchTerm });
+
+const mapDispatchToProps = dispatch => ({
+  handleSearchTermChange(value) {
+    dispatch(updateSearchTerm(value));
+  }
+});
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -39,6 +49,7 @@ class Header extends Component {
   search = () => {
     const { searchText } = this.state;
     this.props.history.push(`/search/${searchText}`);
+    this.props.handleSearchTermChange(searchText);
   };
 
   render() {
@@ -68,4 +79,7 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

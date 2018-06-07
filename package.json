@@ -13,9 +13,12 @@
     "prettier": "^1.13.4",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "react-spinners": "^0.3.2",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^3.3.2"
   },
   "lint-staged": {
@@ -25,7 +28,7 @@
     ]
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start | node api/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
